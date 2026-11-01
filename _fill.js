@@ -35,7 +35,7 @@ const [d,hm]=when.split(' '); const day=String(+d.split('-')[2]); const [hh,mm]=
 const cell=[...document.querySelectorAll('.d-datepicker-cell-main')].filter(e=>!e.className.includes('disabled') && !e.parentElement.className.includes('disabled')).find(e=>e.textContent.trim()===day);
 if(!cell) return 'no day'; cell.click(); await sleep(500);
 const bars=[...document.querySelectorAll('.d-timepicker-timebar')];
-for(const [bar,v] of [[bars[0],hh],[bars[1],mm]]){const it=[...bar.querySelectorAll('.d-timepicker-time')].find(e=>/^\d+$/.test(e.textContent.trim()) && +e.textContent.trim()===+v); if(!it) return 'no '+v+' have:'+[...bar.querySelectorAll('.d-timepicker-time')].map(e=>e.textContent.trim()).slice(0,6).join(','); it.scrollIntoView({block:'center'}); it.click(); await sleep(400);}
+for(const [bar,v] of [[bars[0],hh],[bars[1],mm]]){const it=[...bar.querySelectorAll('.d-timepicker-time')].find(e=>/^\d+/.test(e.textContent.trim()) && parseInt(e.textContent.trim(),10)===+v); if(!it) return 'no '+v+' have:'+[...bar.querySelectorAll('.d-timepicker-time')].map(e=>e.textContent.trim()).slice(0,6).join(','); it.scrollIntoView({block:'center'}); it.click(); await sleep(400);}
 document.body.click(); await sleep(400);
 const on=document.querySelector('.post-time-switch-container .d-switch-simulator').className.includes('checked');
 return {v:getIn().value, ok:getIn().value===when && on};};
